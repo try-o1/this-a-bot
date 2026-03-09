@@ -1,29 +1,141 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>小马第一次实操</title>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex布局</title>
     <style>
-      body { margin: 0; }
+        * { box-sizing: border-box; }
+        /* add border to every div/region */
+        div { border: 1px solid #000; }
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #eee;
+            display: flex;
+            align-items: flex-start; /* make top edges align */
+        }
+        /* sidebar fixed width, full height */
+        .sidebar { width: 200px; height: 100vh; overflow: hidden; transition: margin .3s; }
+        .sidebar.hidden { margin-left: -200px; }
+        #showBtn { position: fixed; left: 0; top: 8px; padding: 8px; background:#fff; border:1px solid #000; cursor:pointer; display:none; z-index:100; }
+        .baise { background-color: white; }
+        .flex    { display: flex; }
+        .column  { flex-direction: column; }
+        .flex1   { flex: 1; }
+        .mg8     { margin: 8px; }
+        .mgr8    { margin-right: 8px; }
+        .mgt8    { margin-top: 8px; }
+        .daohang { padding: 10px    20px;
+                    border-bottom: 1px solid rgb(190, 190, 190);
+                    font-size: 14px;
+                    color: #666;}
+        /* submenu hidden by default */
+        .submenu { display: none; }
+        /* when parent gets .open class show submenu */
+        .daohang.open + .submenu { display: block; }
+        @media (max-width: 600px) {
+            .cebian{ display: none; }
+            .neirong{ flex-direction: column; }
+            .shujuqu{ flex-direction: column; }
+            .youqu{ margin-left: 8px; }
+            .shujuqu{margin: 0  0   8px;flex:auto; }
+        }
     </style>
-  </head>
-  <body>
-    <div style="background-color:pink; text-align:center; padding:40px;">
-      <img src="D:/素材1/sucai1.jpg" alt="比心">
+</head>
+<body class="flex">
+    <!-- 侧边栏 -->
+    <div class="sidebar flex column baise" style="z-index: 2; height:100%;">
+        <!-- 显示/隐藏按钮 -->
+        <div id="toggleBtn" style="cursor:pointer; padding:8px;">☰</div>
+        <!-- 头像 -->
+        <div class="flex" style="align-items:center; padding:8px;">
+            <img src="D:\素材1\sucai1.jpg" width="40" height="40" alt="">
+            <div style="margin-left: 10px;">头像</div>
+        </div>
+        <!-- 导航 -->
+        <div id="nav" class="flex1 column">
+            <div class="daohang">导航 1</div>
+            <div class="submenu">
+                <div class="daohang">子项 1-1</div>
+                <div class="daohang">子项 1-2</div>
+            </div>
+            <div class="daohang">导航 2</div>
+            <div class="submenu">
+                <div class="daohang">子项 2-1</div>
+            </div>
+            <div class="daohang">导航 3</div>
+            <div class="submenu">
+                <div class="daohang">子项 3-1</div>
+                <div class="daohang">子项 3-2</div>
+                <div class="daohang">子项 3-3</div>
+            </div>
+            <div class="daohang">导航 4</div>
+            <div class="submenu">
+                <div class="daohang">子项 4-1</div>
+                <div class="daohang">子项 4-2</div>
+                <div class="daohang">子项 4-3</div>
+            </div>
+            <div class="daohang">导航 5</div>
+            <div class="submenu">
+                <div class="daohang">子项 5-1</div>
+                <div class="daohang">子项 5-2</div>
+                <div class="daohang">子项 5-3</div>
+            </div>
+            <div class="daohang">导航 6</div>
+            <div class="submenu">
+                <div class="daohang">子项 6-1</div>
+                <div class="daohang">子项 6-2</div>
+                <div class="daohang">子项 6-3</div>
+            </div>
+        </div>
     </div>
+    <!-- 主区域 -->
+    <div id="showBtn">►</div>
+    <script>
+        // 点击导航项展开/收起紧跟的子菜单
+        document.querySelectorAll('#nav > .daohang').forEach(el => {
+            el.addEventListener('click', () => {
+                el.classList.toggle('open');
+            });
+        });
+        // sidebar show/hide
+        const sidebar = document.querySelector('.sidebar');
+        const showBtn = document.getElementById('showBtn');
+        const toggleBtn = document.getElementById('toggleBtn');
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            showBtn.style.display = sidebar.classList.contains('hidden') ? 'block' : 'none';
+        });
+        showBtn.addEventListener('click', () => {
+            sidebar.classList.remove('hidden');
+            showBtn.style.display = 'none';
+        });
+    </script>    <div class="flex flex1 column">
+        <!-- 头部 -->
+        <div style="height:60px;z-index: 1;" class="baise yinying        document.querySelectorAll('#nav > .daohang').forEach(el => {
+            el.addEventListener('click', () => {
+                el.classList.toggle('open');
+            });
+        });">头部栏</div>
 
-    <div style="max-width:700px; margin:30px auto; padding:15px; line-height:1.7;">
-      <p>希望你喜欢</p>
-      <p>希望你喜欢</p>
-      <p>希望你喜欢</p>
-      <p>希望你喜欢</p>
-      <p>希望你喜欢</p>
-      <p>希望你喜欢</p>
-    </div>
+        <!-- 内容区域 -->
+        <div    style="overflow: auto;" class="neirong flex flex1">
+            <!-- 左区域 -->
+            <div style="flex:3;" class="flex column mg8">
+                <div style="height:200px;" class="baise mgt8">左区域 - 上</div>
+                <div style="height:200px;" class="baise mgt8">左区域 - 下</div>
+            </div>
+            <!-- 右区域 -->
+            <div style="flex:1;" class="youqu flex column mgr8 mgt8">
+                <div style="height:200px;" class="baise mgt8">右区域 - 上</div>
+                <div style="height:200px;" class="baise mgt8">右区域 - 下</div>
+            </div>
+        </div>
 
-    <div style="background-color:pink; text-align:center; padding:40px; font-size:12px; max-width:700px; margin:30px auto; line-height:1.7;">
-      <p>希望你喜欢</p>
+        <!-- 提示 / 消息 -->
+        <div style="height:150px;" class="baise">提示区域</div>
+        <div style="height:300px;" class="baise mgt8">消息区域</div>
     </div>
-  </body>
+</body>
 </html>
